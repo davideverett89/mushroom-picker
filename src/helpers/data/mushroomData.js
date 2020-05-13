@@ -181,3 +181,17 @@ const mushrooms = [
     isDeadly: false,
   },
 ];
+
+const basket = [];
+
+const getMushrooms = () => mushrooms;
+
+const getBasket = () => basket;
+
+const pickAMushroom = () => {
+  const randomNum = Math.floor(Math.random() * mushrooms.length);
+  const pickedMushroom = mushrooms[randomNum];
+  basket.push(pickedMushroom);
+};
+
+export default { getMushrooms, getBasket, pickAMushroom };
