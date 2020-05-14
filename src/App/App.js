@@ -33,12 +33,14 @@ class App extends React.Component {
         <button className="m-3 btn btn-dark" onClick={this.pickMushroomEvent}>Pick Mushroom</button>
         <div className="container-fluid mt-3">
           <div className="row">
+            <div className="col-6">
             <h2 className="forest-header text-center m-auto display-4">Forest</h2>
             <Forest mushrooms={mushrooms} />
-          </div>
-          <div className="row">
+            </div>
+            <div className="col-6">
             <h2 className="basket-header text-center m-auto display-4">Basket</h2>
             <Basket mushrooms={basket} />
+            </div>
           </div>
         </div>
       </div>
