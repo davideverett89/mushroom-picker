@@ -203,12 +203,25 @@ const pickedDeadlyMushroom = (pickedMushroom) => {
 };
 
 const pickedMagicMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}!  This one is magic! YOU WIN!`);
+  alert(`You picked a ${pickedMushroom.name}!  This one is magic!`);
   mushrooms.forEach((mushroom) => {
     if (mushroom.isPoisonous === false && mushroom.isDeadly === false && mushroom.isMagic === false) {
       basket.push(mushroom);
     }
   });
+  checkForWinner();
+};
+
+const checkForWinner = () => {
+  const safeMushrooms = mushrooms.filter((mushroom) => mushroom.isPoisonous === false && mushroom.isDeadly === false && mushroom.isMagic === false);
+  const basketMushroomLog = safeMushrooms.map((mushroom) => {
+    const isIncluded = basket.includes((mushroom));
+    return isIncluded;
+  });
+  const isWinner = basketMushroomLog.every((x) => x === true);
+  if (isWinner) {
+    alert('You won!');
+  }
 };
 
 const pickAMushroom = () => {
@@ -222,6 +235,7 @@ const pickAMushroom = () => {
     pickedMagicMushroom(pickedMushroom);
   } else {
     basket.push(pickedMushroom);
+    checkForWinner();
   }
 };
 
