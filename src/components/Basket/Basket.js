@@ -13,8 +13,8 @@ class Basket extends React.Component {
 
     render() {
       const { mushrooms } = this.props;
-      const basketMushroomCards = mushrooms.map((mushroom) => (
-        <Mushroom key={mushroom.id} mushroom={mushroom} />
+      const basketMushroomCards = mushrooms.map((mushroom, i) => (
+        <Mushroom key={`pickedMushroom${i + 1}`} mushroom={mushroom} />
       ));
       return (
         <div className="Basket col-12 p-3 d-flex flex-wrap">
