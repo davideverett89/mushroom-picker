@@ -197,11 +197,18 @@ const pickedPoisonousMushroom = (pickedMushroom) => {
   }
 };
 
+const pickedDeadlyMushroom = (pickedMushroom) => {
+  alert(`You picked a ${pickedMushroom.name}.  This one is deadly!`);
+  basket.splice(0, basket.length);
+};
+
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const pickedMushroom = mushrooms[randomNum];
   if (pickedMushroom.isPoisonous) {
     pickedPoisonousMushroom(pickedMushroom);
+  } else if (pickedMushroom.isDeadly) {
+    pickedDeadlyMushroom(pickedMushroom);
   } else {
     basket.push(pickedMushroom);
   }
