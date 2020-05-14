@@ -17,9 +17,9 @@ class Forest extends React.Component {
         <Mushroom key={mushroom.id} mushroom={mushroom} />
     ));
     return (
-        <div className="Forest d-flex flex-wrap">
-            {mushroomCards}
-        </div>
+          <div className="Forest col-12 p-3 d-flex flex-wrap">
+              {mushroomCards}
+          </div>
     );
   }
 }
