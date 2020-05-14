@@ -17,7 +17,7 @@ class Basket extends React.Component {
         <Mushroom key={`pickedMushroom${i + 1}`} mushroom={mushroom} />
       ));
       return (
-        <div className="Basket col-12 p-3 d-flex flex-wrap">
+        <div className="Basket p-3 d-flex flex-wrap">
             { basketMushroomCards.length === 0 ? <h3 className="empty-basket m-auto">Your Basket Is Empty!</h3> : basketMushroomCards }
         </div>
       );
