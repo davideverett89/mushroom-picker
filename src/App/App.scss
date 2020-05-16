@@ -7,4 +7,8 @@
   .basket-header {
     border-bottom: 1px solid black;
   }
+  &.dark-mode {
+    background-color: black;
+    color: white;
+  }
 }

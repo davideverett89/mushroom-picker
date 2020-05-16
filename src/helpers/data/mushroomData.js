@@ -184,12 +184,16 @@ const mushrooms = [
 
 const basket = [];
 
+
 const getMushrooms = () => mushrooms;
+
+let newMushroom;
+
+const getNewMushroom = () => newMushroom;
 
 const getBasket = () => basket;
 
-const pickedPoisonousMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}.  This one is poisonous!`);
+const pickedPoisonousMushroom = () => {
   if (basket.length < 2) {
     basket.splice(0, 1);
   } else {
@@ -197,13 +201,11 @@ const pickedPoisonousMushroom = (pickedMushroom) => {
   }
 };
 
-const pickedDeadlyMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}.  This one is deadly!`);
+const pickedDeadlyMushroom = () => {
   basket.splice(0, basket.length);
 };
 
-const pickedMagicMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}!  This one is magic!`);
+const pickedMagicMushroom = () => {
   mushrooms.forEach((mushroom) => {
     if (mushroom.isPoisonous === false && mushroom.isDeadly === false && mushroom.isMagic === false) {
       basket.push(mushroom);
@@ -226,17 +228,27 @@ const checkForWinner = () => {
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
+  let isDark = false;
   const pickedMushroom = mushrooms[randomNum];
   if (pickedMushroom.isPoisonous) {
     pickedPoisonousMushroom(pickedMushroom);
+    isDark = true;
   } else if (pickedMushroom.isDeadly) {
     pickedDeadlyMushroom(pickedMushroom);
+    isDark = true;
   } else if (pickedMushroom.isMagic) {
     pickedMagicMushroom(pickedMushroom);
   } else {
+    newMushroom = pickedMushroom;
     basket.push(pickedMushroom);
     checkForWinner();
   }
+  return isDark;
 };
 
-export default { getMushrooms, getBasket, pickAMushroom };
+export default {
+  getMushrooms,
+  getBasket,
+  pickAMushroom,
+  getNewMushroom,
+};
