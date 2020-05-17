@@ -3,12 +3,15 @@ import './App.scss';
 import mushroomData from '../helpers/data/mushroomData';
 import Forest from '../components/Forest/Forest';
 import Basket from '../components/Basket/Basket';
+import Mushroom from '../components/Mushroom/Mushroom';
 
 class App extends React.Component {
   state= {
     mushrooms: [],
     basket: [],
+    newMushroom: '',
     isDark: false,
+    isWinner: false,
   }
 
   componentDidMount() {
@@ -19,13 +22,18 @@ class App extends React.Component {
 
   pickMushroomEvent = (e) => {
     e.preventDefault();
-    const isDark = mushroomData.pickAMushroom();
+    const returnData = mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
-    this.setState({ basket, isDark });
-    if (isDark) {
+    this.setState({
+      basket,
+      newMushroom: returnData.newMushroom,
+      isDark: returnData.isDark,
+      isWinner: returnData.isWinner,
+    });
+    if (returnData.isDark) {
       setTimeout(() => {
         this.setState({ isDark: false });
-      }, 5000);
+      }, 3000);
     }
   }
 
@@ -33,12 +41,22 @@ class App extends React.Component {
     const {
       mushrooms,
       basket,
+      newMushroom,
       isDark,
     } = this.state;
     return (
       <div className={isDark ? 'App dark-mode' : 'App'}>
-        <h1 className="display-1">Mushroom Picker</h1>
-        <button className="m-3 btn btn-dark" onClick={this.pickMushroomEvent}>Pick Mushroom</button>
+        {isDark ? '' : (<h1 className="display-1">Mushroom Picker</h1>)}
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          {isDark ? '' : (<button className="m-3 btn btn-dark" onClick={this.pickMushroomEvent}>Pick Mushroom</button>)}
+          {isDark ? (<i className="mt-5 text-danger fas fa-skull-crossbones fa-10x"></i>) : ('')}
+        </div>
+        {isDark ? (
+        <div className="col-9 m-auto d-flex flex-column align-items-center justify-content-center">
+          <h2>You Picked a Dangerous Mushroom!</h2>
+          <Mushroom key={newMushroom.id} mushroom={newMushroom} />
+        </div>
+        ) : (
         <div className="container-fluid mt-3">
           <div className="row">
             <div className="col-6">
@@ -51,6 +69,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
+        )}
       </div>
     );
   }

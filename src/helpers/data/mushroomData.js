@@ -47,7 +47,7 @@ const mushrooms = [
   },
   {
     id: 'mushroom6',
-    name: 'Chicken Of The Woods Mushrooms',
+    name: 'Chicken Of The Woods',
     description: '​As you might expect, it gets its name because many people think it tastes like chicken. In fact, you can cook it many of the same ways that you\'d prepare chicken. This makes it a​ great meat substitute for vegetarians.',
     imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Chicken-Of-The-Woods-Mushrooms.jpg',
     isMagic: false,
@@ -184,12 +184,7 @@ const mushrooms = [
 
 const basket = [];
 
-
 const getMushrooms = () => mushrooms;
-
-let newMushroom;
-
-const getNewMushroom = () => newMushroom;
 
 const getBasket = () => basket;
 
@@ -221,14 +216,14 @@ const checkForWinner = () => {
     return isIncluded;
   });
   const isWinner = basketMushroomLog.every((x) => x === true);
-  if (isWinner) {
-    alert('You won!');
-  }
+  return isWinner;
 };
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
+  let newMushroom;
   let isDark = false;
+  let isWinner = false;
   const pickedMushroom = mushrooms[randomNum];
   if (pickedMushroom.isPoisonous) {
     pickedPoisonousMushroom(pickedMushroom);
@@ -241,14 +236,14 @@ const pickAMushroom = () => {
   } else {
     newMushroom = pickedMushroom;
     basket.push(pickedMushroom);
-    checkForWinner();
+    isWinner = checkForWinner();
   }
-  return isDark;
+  newMushroom = pickedMushroom;
+  return { newMushroom, isDark, isWinner };
 };
 
 export default {
   getMushrooms,
   getBasket,
   pickAMushroom,
-  getNewMushroom,
 };

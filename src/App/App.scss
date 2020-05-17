@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   margin-top: 15px;
+  min-height: 5010px;
   .forest-header {
     border-bottom: 1px solid black;
   }
@@ -9,6 +10,6 @@
   }
   &.dark-mode {
     background-color: black;
-    color: white;
+    color: red;
   }
 }
