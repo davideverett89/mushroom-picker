@@ -206,7 +206,6 @@ const pickedMagicMushroom = () => {
       basket.push(mushroom);
     }
   });
-  checkForWinner();
 };
 
 const checkForWinner = () => {

@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   margin-top: 15px;
-  min-height: 5010px;
+  min-height: 840px;
   .forest-header {
     border-bottom: 1px solid black;
   }
@@ -12,4 +12,18 @@
     background-color: black;
     color: red;
   }
+  &.winner-mode {
+    background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet); /* Standard syntax (must be last) */
+  }
+}
+
+.text-outline {
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
 }
