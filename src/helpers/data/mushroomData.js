@@ -220,24 +220,22 @@ const checkForWinner = () => {
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
-  let newMushroom;
   let isDark = false;
   let isWinner = false;
   const pickedMushroom = mushrooms[randomNum];
   if (pickedMushroom.isPoisonous) {
-    pickedPoisonousMushroom(pickedMushroom);
+    pickedPoisonousMushroom();
     isDark = true;
   } else if (pickedMushroom.isDeadly) {
-    pickedDeadlyMushroom(pickedMushroom);
+    pickedDeadlyMushroom();
     isDark = true;
   } else if (pickedMushroom.isMagic) {
-    pickedMagicMushroom(pickedMushroom);
+    pickedMagicMushroom();
   } else {
-    newMushroom = pickedMushroom;
     basket.push(pickedMushroom);
-    isWinner = checkForWinner();
   }
-  newMushroom = pickedMushroom;
+  isWinner = checkForWinner();
+  const newMushroom = pickedMushroom;
   return { newMushroom, isDark, isWinner };
 };
 

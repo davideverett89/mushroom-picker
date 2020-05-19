@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin-top: 15px;
+  height: 100%;
   min-height: 840px;
   .forest-header {
     border-bottom: 1px solid black;
@@ -18,12 +18,4 @@
     background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet); /* Standard syntax (must be last) */
   }
-}
-
-.text-outline {
-  text-shadow:
-  -1px -1px 0 #000,
-  1px -1px 0 #000,
-  -1px 1px 0 #000,
-  1px 1px 0 #000;
 }
