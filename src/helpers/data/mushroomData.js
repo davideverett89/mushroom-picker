@@ -47,7 +47,7 @@ const mushrooms = [
   },
   {
     id: 'mushroom6',
-    name: 'Chicken Of The Woods Mushrooms',
+    name: 'Chicken Of The Woods',
     description: '​As you might expect, it gets its name because many people think it tastes like chicken. In fact, you can cook it many of the same ways that you\'d prepare chicken. This makes it a​ great meat substitute for vegetarians.',
     imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Chicken-Of-The-Woods-Mushrooms.jpg',
     isMagic: false,
@@ -188,8 +188,7 @@ const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
 
-const pickedPoisonousMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}.  This one is poisonous!`);
+const pickedPoisonousMushroom = () => {
   if (basket.length < 2) {
     basket.splice(0, 1);
   } else {
@@ -197,19 +196,16 @@ const pickedPoisonousMushroom = (pickedMushroom) => {
   }
 };
 
-const pickedDeadlyMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}.  This one is deadly!`);
+const pickedDeadlyMushroom = () => {
   basket.splice(0, basket.length);
 };
 
-const pickedMagicMushroom = (pickedMushroom) => {
-  alert(`You picked a ${pickedMushroom.name}!  This one is magic!`);
+const pickedMagicMushroom = () => {
   mushrooms.forEach((mushroom) => {
     if (mushroom.isPoisonous === false && mushroom.isDeadly === false && mushroom.isMagic === false) {
       basket.push(mushroom);
     }
   });
-  checkForWinner();
 };
 
 const checkForWinner = () => {
@@ -219,24 +215,32 @@ const checkForWinner = () => {
     return isIncluded;
   });
   const isWinner = basketMushroomLog.every((x) => x === true);
-  if (isWinner) {
-    alert('You won!');
-  }
+  return isWinner;
 };
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
+  let isDark = false;
+  let isWinner = false;
   const pickedMushroom = mushrooms[randomNum];
   if (pickedMushroom.isPoisonous) {
-    pickedPoisonousMushroom(pickedMushroom);
+    pickedPoisonousMushroom();
+    isDark = true;
   } else if (pickedMushroom.isDeadly) {
-    pickedDeadlyMushroom(pickedMushroom);
+    pickedDeadlyMushroom();
+    isDark = true;
   } else if (pickedMushroom.isMagic) {
-    pickedMagicMushroom(pickedMushroom);
+    pickedMagicMushroom();
   } else {
     basket.push(pickedMushroom);
-    checkForWinner();
   }
+  isWinner = checkForWinner();
+  const newMushroom = pickedMushroom;
+  return { newMushroom, isDark, isWinner };
 };
 
-export default { getMushrooms, getBasket, pickAMushroom };
+export default {
+  getMushrooms,
+  getBasket,
+  pickAMushroom,
+};

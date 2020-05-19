@@ -1,14 +1,19 @@
+/* eslint-disable max-len */
 import React from 'react';
 import './App.scss';
-
 import mushroomData from '../helpers/data/mushroomData';
-import Forest from '../components/Forest/Forest';
-import Basket from '../components/Basket/Basket';
+import DangerousMushroom from '../components/DangerousMushroom/DangerousMushroom';
+import MagicMushroom from '../components/MagicMushroom/MagicMushroom';
+import Main from '../components/Main/Main';
+import Winner from '../components/Winner/Winner';
 
 class App extends React.Component {
   state= {
     mushrooms: [],
     basket: [],
+    newMushroom: '',
+    isDark: false,
+    isWinner: false,
   }
 
   componentDidMount() {
@@ -19,30 +24,65 @@ class App extends React.Component {
 
   pickMushroomEvent = (e) => {
     e.preventDefault();
-    mushroomData.pickAMushroom();
+    const returnData = mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
-    this.setState({ basket });
+    this.setState({
+      basket,
+      newMushroom: returnData.newMushroom,
+      isDark: returnData.isDark,
+      isWinner: returnData.isWinner,
+    });
+    if (returnData.isDark) {
+      setTimeout(() => {
+        this.setState({ isDark: false });
+      }, 3000);
+    }
   }
 
   render() {
-    const { mushrooms, basket } = this.state;
+    const {
+      mushrooms,
+      basket,
+      newMushroom,
+      isDark,
+      isWinner,
+    } = this.state;
+
+    const classRouter = () => {
+      let className;
+      if (isDark) {
+        className = 'App dark-mode';
+      } else if (isWinner) {
+        className = 'App winner-mode';
+      } else if (newMushroom.isMagic) {
+        className = 'App winner-mode';
+      } else {
+        className = 'App';
+      }
+      return className;
+    };
+
+    const componentRouter = () => {
+      let componentToLoad;
+      if (isWinner && newMushroom.isMagic === false) {
+        componentToLoad = <Winner />;
+      } else if (newMushroom.isMagic) {
+        componentToLoad = <MagicMushroom mushroom={newMushroom} />;
+      } else if (isDark) {
+        componentToLoad = <DangerousMushroom mushroom={newMushroom} />;
+      } else {
+        componentToLoad = <Main mushrooms={mushrooms} basket={basket} />;
+      }
+      return componentToLoad;
+    };
 
     return (
-      <div className="App">
-        <h1 className="display-1">Mushroom Picker</h1>
-        <button className="m-3 btn btn-dark" onClick={this.pickMushroomEvent}>Pick Mushroom</button>
-        <div className="container-fluid mt-3">
-          <div className="row">
-            <div className="col-6">
-            <h2 className="forest-header text-center m-auto display-4">Forest</h2>
-            <Forest mushrooms={mushrooms} />
-            </div>
-            <div className="col-6">
-            <h2 className="basket-header text-center m-auto display-4">Basket</h2>
-            <Basket mushrooms={basket} />
-            </div>
-          </div>
+      <div className={classRouter()}>
+        {isDark || newMushroom.isMagic || isWinner ? '' : (<h1 className="display-1">Mushroom Picker</h1>)}
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          {isDark || newMushroom.isMagic || isWinner ? '' : (<button className="m-3 btn btn-dark" onClick={this.pickMushroomEvent}>Pick Mushroom</button>)}
         </div>
+        { componentRouter() }
       </div>
     );
   }

@@ -18,7 +18,7 @@ class Basket extends React.Component {
       ));
       return (
         <div className="Basket p-3 d-flex flex-wrap">
-            { basketMushroomCards.length === 0 ? <h3 className="empty-basket m-auto">Your Basket Is Empty!</h3> : basketMushroomCards }
+          { basketMushroomCards.length === 0 ? <h3 className="empty-basket m-auto">Your Basket Is Empty!</h3> : basketMushroomCards }
         </div>
       );
     }
