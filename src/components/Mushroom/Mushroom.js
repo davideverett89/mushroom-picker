@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React from 'react';
 import mushroomShape from '../../helpers/propz/mushroomShape';
 import './Mushroom.scss';
