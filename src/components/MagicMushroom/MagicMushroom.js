@@ -1,10 +1,16 @@
 import React from 'react';
 import './MagicMushroom.scss';
 
+import mushroomShape from '../../helpers/propz/mushroomShape';
+
 import Mushroom from '../Mushroom/Mushroom';
 import Winner from '../Winner/Winner';
 
 class MagicMushroom extends React.Component {
+  static propTypes = {
+    mushroom: mushroomShape.mushroomShape,
+  }
+
   state = {
     loadWinner: false,
   }
