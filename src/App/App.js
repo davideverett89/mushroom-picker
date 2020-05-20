@@ -22,6 +22,16 @@ class App extends React.Component {
     this.setState({ mushrooms, basket });
   }
 
+  startOver = () => {
+    this.setState({
+      mushrooms: mushroomData.getMushrooms(),
+      basket: mushroomData.clearBasket(),
+      newMushroom: '',
+      isDark: false,
+      isWinner: false,
+    });
+  }
+
   pickMushroomEvent = (e) => {
     e.preventDefault();
     const returnData = mushroomData.pickAMushroom();
@@ -30,12 +40,18 @@ class App extends React.Component {
       basket,
       newMushroom: returnData.newMushroom,
       isDark: returnData.isDark,
-      isWinner: returnData.isWinner,
     });
     if (returnData.isDark) {
       setTimeout(() => {
         this.setState({ isDark: false });
       }, 3000);
+    }
+    if (returnData.newMushroom.isMagic) {
+      setTimeout(() => {
+        this.setState({ isWinner: mushroomData.checkForWinner() });
+      }, 3000);
+    } else {
+      this.setState({ isWinner: mushroomData.checkForWinner() });
     }
   }
 
@@ -64,12 +80,12 @@ class App extends React.Component {
 
     const componentRouter = () => {
       let componentToLoad;
-      if (isWinner && newMushroom.isMagic === false) {
-        componentToLoad = <Winner />;
-      } else if (newMushroom.isMagic) {
+      if (newMushroom.isMagic && isWinner === false) {
         componentToLoad = <MagicMushroom mushroom={newMushroom} />;
       } else if (isDark) {
         componentToLoad = <DangerousMushroom mushroom={newMushroom} />;
+      } else if (isWinner) {
+        componentToLoad = <Winner startOver={this.startOver} />;
       } else {
         componentToLoad = <Main mushrooms={mushrooms} basket={basket} />;
       }
