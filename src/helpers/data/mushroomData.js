@@ -188,7 +188,8 @@ const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
 
-const pickedPoisonousMushroom = () => {
+
+const clearTwoFromBasket = () => {
   if (basket.length < 2) {
     basket.splice(0, 1);
   } else {
@@ -196,8 +197,9 @@ const pickedPoisonousMushroom = () => {
   }
 };
 
-const pickedDeadlyMushroom = () => {
+const clearBasket = () => {
   basket.splice(0, basket.length);
+  return basket;
 };
 
 const pickedMagicMushroom = () => {
@@ -221,26 +223,26 @@ const checkForWinner = () => {
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   let isDark = false;
-  let isWinner = false;
   const pickedMushroom = mushrooms[randomNum];
   if (pickedMushroom.isPoisonous) {
-    pickedPoisonousMushroom();
+    clearTwoFromBasket();
     isDark = true;
   } else if (pickedMushroom.isDeadly) {
-    pickedDeadlyMushroom();
+    clearBasket();
     isDark = true;
   } else if (pickedMushroom.isMagic) {
     pickedMagicMushroom();
   } else {
     basket.push(pickedMushroom);
   }
-  isWinner = checkForWinner();
   const newMushroom = pickedMushroom;
-  return { newMushroom, isDark, isWinner };
+  return { newMushroom, isDark };
 };
 
 export default {
   getMushrooms,
   getBasket,
   pickAMushroom,
+  checkForWinner,
+  clearBasket,
 };
