@@ -186,7 +186,20 @@ const basket = [];
 
 const getMushrooms = () => mushrooms;
 
-const getBasket = () => basket;
+const getBasket = () => {
+  const condensedBasket = basket.reduce((acc, curr) => {
+    const findMultiple = acc.findIndex((x) => x.id === curr.id);
+    if (findMultiple === -1) {
+      const newObj = { ...curr };
+      newObj.quantity = 1;
+      acc.push(newObj);
+    } else {
+      acc[findMultiple].quantity += 1;
+    }
+    return acc;
+  }, []);
+  return condensedBasket;
+};
 
 
 const clearTwoFromBasket = () => {
